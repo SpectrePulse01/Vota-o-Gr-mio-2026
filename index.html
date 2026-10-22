@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -13,73 +13,97 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
-  <header class="glass sticky top-0 z-40 px-6 py-4 flex justify-between items-center shadow-lg border-b border-slate-700">
-    <div class="flex items-center gap-3">
-      <div class="bg-blue-600 p-2.5 rounded-xl text-white font-bold text-xl"><i class="fa-solid fa-vote-yea"></i></div>
-      <div><h1 class="text-lg font-bold leading-tight">E.E. Profª Enny Tereza Longo Fracaro</h1><p class="text-xs text-slate-400">Eleição Grêmio Estudantil</p></div>
-    </div>
-    <button onclick="openAdminModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm font-semibold transition border border-slate-600 flex items-center gap-2"><i class="fa-solid fa-lock"></i><span class="hidden md:inline">Acesso ADM</span></button>
-  </header>
+<header class="glass sticky top-0 z-40 px-6 py-4 flex justify-between items-center shadow-lg border-b border-slate-700">
+  <div class="flex items-center gap-3">
+    <div class="bg-blue-600 p-2.5 rounded-xl text-white font-bold text-xl"><i class="fa-solid fa-vote-yea"></i></div>
+    <div><h1 class="text-lg font-bold leading-tight">E.E. Profª Enny Tereza Longo Fracaro</h1><p class="text-xs text-slate-400">Eleição Grêmio Estudantil</p></div>
+  </div>
+  <button onclick="openAdminModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm font-semibold transition border border-slate-600 flex items-center gap-2"><i class="fa-solid fa-lock"></i><span class="hidden md:inline">Acesso ADM</span></button>
+</header>
 
-  <main class="container mx-auto px-4 py-8 max-w-4xl flex-grow flex flex-col justify-center">
-    <div id="vote-feedback" class="hidden mb-6 p-6 bg-emerald-900/90 border border-emerald-500 rounded-2xl text-center shadow-2xl">
-      <i class="fa-solid fa-circle-check text-5xl text-emerald-400 mb-2"></i><h2 class="text-2xl font-bold">Voto Registrado com Sucesso!</h2><p class="text-emerald-200 mt-1">Obrigado por participar. O próximo aluno já pode digitar seu RA.</p>
-    </div>
-    <div id="ra-error" class="hidden mb-6 p-4 bg-red-900/90 border border-red-500 rounded-xl text-center shadow-xl"><p id="ra-error-msg" class="text-red-200 font-bold text-sm"></p></div>
+<main class="container mx-auto px-4 py-8 max-w-4xl flex-grow flex flex-col justify-center">
+  <div id="vote-feedback" class="hidden mb-6 p-6 bg-emerald-900/90 border border-emerald-500 rounded-2xl text-center shadow-2xl">
+    <i class="fa-solid fa-circle-check text-5xl text-emerald-400 mb-2"></i>
+    <h2 class="text-2xl font-bold">Voto Registrado com Sucesso!</h2>
+    <p class="text-emerald-200 mt-1">Obrigado por participar. O próximo aluno já pode digitar seu RA.</p>
+  </div>
+  <div id="ra-error" class="hidden mb-6 p-4 bg-red-900/90 border border-red-500 rounded-xl text-center shadow-xl"><p id="ra-error-msg" class="text-red-200 font-bold text-sm"></p></div>
 
-    <div class="text-center mb-6"><h2 class="text-2xl md:text-3xl font-extrabold">Identificação do Aluno</h2><p class="text-slate-400 mt-1 text-sm md:text-base">Digite seu RA (até 9 números) e Dígito para habilitar a votação</p></div>
-    <div class="glass p-6 rounded-2xl mb-8 max-w-lg mx-auto w-full shadow-xl">
-      <div class="flex gap-3">
-        <div class="flex-1"><label class="block text-xs font-semibold text-slate-300 mb-1">Número do RA (máx. 9 dígitos)</label><input type="text" id="student-ra" maxlength="9" inputmode="numeric" pattern="[0-9]*" placeholder="Ex: 123456789" oninput="sanitizeAndValidateRa()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 font-mono text-center text-lg" /></div>
-        <div class="w-28"><label class="block text-xs font-semibold text-slate-300 mb-1">Dígito</label><input type="text" id="student-dig" maxlength="2" placeholder="Ex: X" oninput="validateRaInput()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 font-mono text-center text-lg uppercase" /></div>
-      </div>
-    </div>
-
-    <div class="text-center mb-6"><h2 class="text-xl md:text-2xl font-extrabold">Escolha sua Chapa</h2><p class="text-slate-400 mt-1 text-xs md:text-sm">Selecione uma das opções abaixo</p></div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div onclick="selectChapa('15')" id="card-15" class="chapa-card glass p-6 rounded-2xl cursor-pointer hover:border-blue-500 transition-all border-2 border-transparent relative group">
-        <div class="flex justify-between items-start mb-4"><span class="px-4 py-1.5 bg-blue-600/30 text-blue-400 border border-blue-500/40 rounded-full font-bold text-lg">Chapa 15</span><div id="check-15" class="w-6 h-6 rounded-full border-2 border-slate-500 flex items-center justify-center text-xs"></div></div>
-        <h3 class="text-2xl font-bold group-hover:text-blue-400 transition">UAJ</h3><p class="text-slate-300 font-medium text-sm">União Avanço Jovem</p><p class="text-slate-400 text-xs mt-3">Compromisso com o estudante e melhorias para a nossa escola.</p>
-      </div>
-      <div onclick="selectChapa('100')" id="card-100" class="chapa-card glass p-6 rounded-2xl cursor-pointer hover:border-purple-500 transition-all border-2 border-transparent relative group">
-        <div class="flex justify-between items-start mb-4"><span class="px-4 py-1.5 bg-purple-600/30 text-purple-400 border border-purple-500/40 rounded-full font-bold text-lg">Chapa 100</span><div id="check-100" class="w-6 h-6 rounded-full border-2 border-slate-500 flex items-center justify-center text-xs"></div></div>
-        <h3 class="text-2xl font-bold group-hover:text-purple-400 transition">Renovação</h3><p class="text-slate-300 font-medium text-sm">Chapa Renovação</p><p class="text-slate-400 text-xs mt-3">Novas ideias e união para transformar o cotidiano escolar.</p>
-      </div>
-    </div>
-    <div class="mt-8 text-center"><button id="btn-confirm" onclick="confirmVote()" disabled class="w-full md:w-auto px-12 py-4 bg-slate-700 text-slate-500 font-bold rounded-xl text-lg cursor-not-allowed transition">Digite o RA e Selecione uma Chapa</button></div>
-  </main>
-
-  <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-    <div id="admin-login-box" class="glass p-8 rounded-2xl max-w-md w-full shadow-2xl">
-      <div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold flex items-center gap-2"><i class="fa-solid fa-user-shield text-blue-500"></i>Painel de Administração</h3><button onclick="closeAdminModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button></div>
-      <form onsubmit="handleAdminLogin(event)" class="space-y-4"><div><label class="block text-xs font-semibold text-slate-400 mb-1">Usuário</label><input type="text" id="admin-user" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" /></div><div><label class="block text-xs font-semibold text-slate-400 mb-1">Senha</label><input type="password" id="admin-pass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" /></div><p id="login-error" class="text-red-400 text-xs hidden">Credenciais incorretas!</p><button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition">Entrar</button></form>
-    </div>
-    <div id="admin-dashboard-box" class="glass p-8 rounded-2xl max-w-2xl w-full shadow-2xl hidden max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4"><div><h3 class="text-xl font-bold">Resultado da Votação</h3><p class="text-xs text-slate-400">Apuração centralizada em tempo real</p></div><button onclick="closeAdminModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button></div>
-      <div class="grid grid-cols-2 gap-4 mb-6"><div class="bg-blue-900/40 border border-blue-500/30 p-4 rounded-xl text-center"><p class="text-xs text-blue-300 font-semibold">Chapa 15 (UAJ)</p><p id="count-15" class="text-3xl font-extrabold text-blue-400 mt-1">0</p></div><div class="bg-purple-900/40 border border-purple-500/30 p-4 rounded-xl text-center"><p class="text-xs text-purple-300 font-semibold">Chapa 100 (Renovação)</p><p id="count-100" class="text-3xl font-extrabold text-purple-400 mt-1">0</p></div></div>
-      <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 mb-6"><canvas id="resultsChart" class="max-h-56"></canvas></div>
-      <div class="mb-6"><p class="text-xs font-semibold text-slate-400 mb-1">Total de RAs Registrados:</p><p id="voted-ras-count" class="text-lg font-bold text-emerald-400">0 alunos já votaram</p></div>
-      <div class="flex flex-wrap gap-3"><button onclick="exportCSV()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-2.5 px-4 rounded-lg border border-slate-600 text-sm"><i class="fa-solid fa-file-csv mr-2"></i>Baixar Relatório (.CSV)</button><button onclick="resetVotes()" class="bg-red-600/20 hover:bg-red-600/40 text-red-400 border border-red-500/40 font-semibold py-2.5 px-4 rounded-lg text-sm"><i class="fa-solid fa-trash-can mr-2"></i>Zerar Votos</button></div>
+  <div class="text-center mb-6"><h2 class="text-2xl md:text-3xl font-extrabold">Identificação do Aluno</h2><p class="text-slate-400 mt-1 text-sm md:text-base">Digite seu RA (até 9 números) e Dígito para habilitar a votação</p></div>
+  <div class="glass p-6 rounded-2xl mb-8 max-w-lg mx-auto w-full shadow-xl">
+    <div class="flex gap-3">
+      <div class="flex-1"><label class="block text-xs font-semibold text-slate-300 mb-1">Número do RA (máx. 9 dígitos)</label><input type="text" id="student-ra" maxlength="9" inputmode="numeric" pattern="[0-9]*" placeholder="Ex: 123456789" oninput="sanitizeAndValidateRa()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 font-mono text-center text-lg" /></div>
+      <div class="w-28"><label class="block text-xs font-semibold text-slate-300 mb-1">Dígito</label><input type="text" id="student-dig" maxlength="2" placeholder="Ex: X" oninput="validateRaInput()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 font-mono text-center text-lg uppercase" /></div>
     </div>
   </div>
 
-  <footer class="text-center py-4 text-xs text-slate-500 border-t border-slate-800">E.E. Profª Enny Tereza Longo Fracaro • Sistema de Votação Interna do Grêmio</footer>
+  <div class="text-center mb-6"><h2 class="text-xl md:text-2xl font-extrabold">Escolha sua Chapa</h2><p class="text-slate-400 mt-1 text-xs md:text-sm">Selecione uma das opções abaixo</p></div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div onclick="selectChapa('15')" id="card-15" class="chapa-card glass p-6 rounded-2xl cursor-pointer hover:border-blue-500 transition-all border-2 border-transparent relative group">
+      <div class="flex justify-between items-start mb-4"><span class="px-4 py-1.5 bg-blue-600/30 text-blue-400 border border-blue-500/40 rounded-full font-bold text-lg">Chapa 15</span><div id="check-15" class="w-6 h-6 rounded-full border-2 border-slate-500 flex items-center justify-center text-xs"></div></div>
+      <h3 class="text-2xl font-bold group-hover:text-blue-400 transition">UAJ</h3><p class="text-slate-300 font-medium text-sm">União Avanço Jovem</p><p class="text-slate-400 text-xs mt-3">Compromisso com o estudante e melhorias para a nossa escola.</p>
+    </div>
+    <div onclick="selectChapa('100')" id="card-100" class="chapa-card glass p-6 rounded-2xl cursor-pointer hover:border-purple-500 transition-all border-2 border-transparent relative group">
+      <div class="flex justify-between items-start mb-4"><span class="px-4 py-1.5 bg-purple-600/30 text-purple-400 border border-purple-500/40 rounded-full font-bold text-lg">Chapa 100</span><div id="check-100" class="w-6 h-6 rounded-full border-2 border-slate-500 flex items-center justify-center text-xs"></div></div>
+      <h3 class="text-2xl font-bold group-hover:text-purple-400 transition">Renovação</h3><p class="text-slate-300 font-medium text-sm">Chapa Renovação</p><p class="text-slate-400 text-xs mt-3">Novas ideias e união para transformar o cotidiano escolar.</p>
+    </div>
+  </div>
+  <div class="mt-8 text-center"><button id="btn-confirm" onclick="confirmVote()" disabled class="w-full md:w-auto px-12 py-4 bg-slate-700 text-slate-500 font-bold rounded-xl text-lg cursor-not-allowed transition">Digite o RA e Selecione uma Chapa</button></div>
+</main>
+
+<div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
+  <div id="admin-login-box" class="glass p-8 rounded-2xl max-w-md w-full shadow-2xl">
+    <div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold flex items-center gap-2"><i class="fa-solid fa-user-shield text-blue-500"></i>Painel de Administração</h3><button onclick="closeAdminModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button></div>
+    <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+      <div><label class="block text-xs font-semibold text-slate-400 mb-1">Usuário</label><input type="text" id="admin-user" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" /></div>
+      <div><label class="block text-xs font-semibold text-slate-400 mb-1">Senha</label><input type="password" id="admin-pass" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white" /></div>
+      <p id="login-error" class="text-red-400 text-xs hidden">Credenciais incorretas!</p>
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition">Entrar</button>
+    </form>
+  </div>
+
+  <div id="admin-dashboard-box" class="glass p-8 rounded-2xl max-w-2xl w-full shadow-2xl hidden max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4"><div><h3 class="text-xl font-bold">Resultado da Votação</h3><p class="text-xs text-slate-400">Apuração salva neste dispositivo</p></div><button onclick="closeAdminModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button></div>
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div class="bg-blue-900/40 border border-blue-500/30 p-4 rounded-xl text-center"><p class="text-xs text-blue-300 font-semibold">Chapa 15 (UAJ)</p><p id="count-15" class="text-3xl font-extrabold text-blue-400 mt-1">0</p></div>
+      <div class="bg-purple-900/40 border border-purple-500/30 p-4 rounded-xl text-center"><p class="text-xs text-purple-300 font-semibold">Chapa 100 (Renovação)</p><p id="count-100" class="text-3xl font-extrabold text-purple-400 mt-1">0</p></div>
+    </div>
+    <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 mb-6"><canvas id="resultsChart" class="max-h-56"></canvas></div>
+    <div class="mb-6"><p class="text-xs font-semibold text-slate-400 mb-1">Total de RAs Registrados:</p><p id="voted-ras-count" class="text-lg font-bold text-emerald-400">0 alunos já votaram</p></div>
+    <div class="flex flex-wrap gap-3">
+      <button onclick="exportCSV()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-2.5 px-4 rounded-lg border border-slate-600 text-sm"><i class="fa-solid fa-file-csv mr-2"></i>Baixar Relatório (.CSV)</button>
+      <button onclick="resetVotes()" class="bg-red-600/20 hover:bg-red-600/40 text-red-400 border border-red-500/40 font-semibold py-2.5 px-4 rounded-lg text-sm"><i class="fa-solid fa-trash-can mr-2"></i>Zerar Votos</button>
+    </div>
+  </div>
+</div>
+
+<footer class="text-center py-4 text-xs text-slate-500 border-t border-slate-800">E.E. Profª Enny Tereza Longo Fracaro • Sistema de Votação Interna do Grêmio</footer>
 
 <script>
-let selectedChapa=null, chartInstance=null, adminCredentials=null, latestAdminResults={"15":0,"100":0,total:0};
+let selectedChapa=null;
+let votes={"15":0,"100":0};
+let votedRAs=[];
+let chartInstance=null;
+
+function loadData(){
+  try{votes=JSON.parse(localStorage.getItem('gremio_enny_votes'))||{"15":0,"100":0}}catch{votes={"15":0,"100":0}}
+  try{votedRAs=JSON.parse(localStorage.getItem('gremio_enny_voted_ras'))||[]}catch{votedRAs=[]}
+}
+function saveData(){localStorage.setItem('gremio_enny_votes',JSON.stringify(votes));localStorage.setItem('gremio_enny_voted_ras',JSON.stringify(votedRAs))}
 function sanitizeAndValidateRa(){const e=document.getElementById('student-ra');e.value=e.value.replace(/\D/g,'');validateRaInput()}
-function validateRaInput(){const ra=document.getElementById('student-ra').value.trim(),d=document.getElementById('student-dig').value.trim().toUpperCase();document.getElementById('ra-error').classList.add('hidden');if(selectedChapa&&/^\d{1,9}$/.test(ra)&&/^[0-9A-Z]{1,2}$/.test(d)){enableConfirmButton();return true}disableConfirmButton('Digite o RA e Selecione uma Chapa');return false}
+function validateRaInput(){const ra=document.getElementById('student-ra').value.trim(),d=document.getElementById('student-dig').value.trim().toUpperCase();document.getElementById('ra-error').classList.add('hidden');if(selectedChapa&&/^\d{1,9}$/.test(ra)&&/^[0-9A-Z]{1,2}$/.test(d)){const full=`${ra}-${d}`;if(votedRAs.includes(full)){showRaError('Este RA já votou neste dispositivo.');disableConfirmButton('RA já Registrado');return false}enableConfirmButton();return true}disableConfirmButton('Digite o RA e Selecione uma Chapa');return false}
 function showRaError(m){document.getElementById('ra-error-msg').innerText=m;document.getElementById('ra-error').classList.remove('hidden')}
 function enableConfirmButton(){const b=document.getElementById('btn-confirm');b.disabled=false;b.className='w-full md:w-auto px-12 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-lg cursor-pointer transition shadow-lg shadow-emerald-600/30';b.innerText=`Confirmar Voto na Chapa ${selectedChapa}`}
 function disableConfirmButton(t){const b=document.getElementById('btn-confirm');b.disabled=true;b.className='w-full md:w-auto px-12 py-4 bg-slate-700 text-slate-500 font-bold rounded-xl text-lg cursor-not-allowed transition';b.innerText=t}
 function selectChapa(c){selectedChapa=c;document.querySelectorAll('.chapa-card').forEach(x=>x.classList.remove('border-blue-500','border-purple-500','bg-slate-800/80'));document.getElementById('check-15').innerHTML='';document.getElementById('check-100').innerHTML='';const card=document.getElementById('card-'+c);card.classList.add(c==='15'?'border-blue-500':'border-purple-500','bg-slate-800/80');document.getElementById('check-'+c).innerHTML=`<i class="fa-solid fa-check ${c==='15'?'text-blue-400':'text-purple-400'}"></i>`;validateRaInput()}
-async function confirmVote(){const ra=document.getElementById('student-ra').value.trim(),digito=document.getElementById('student-dig').value.trim().toUpperCase();if(!ra||!digito||!selectedChapa||!validateRaInput())return;disableConfirmButton('Registrando Voto...');try{const r=await fetch('/api/vote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ra,digito,chapa:selectedChapa})});const data=await r.json().catch(()=>({}));if(r.status===409){showRaError('Este RA já registrou um voto anteriormente.');validateRaInput();return}if(!r.ok)throw new Error(data.error||'Falha ao registrar');const f=document.getElementById('vote-feedback');f.classList.remove('hidden');setTimeout(()=>{f.classList.add('hidden');document.getElementById('student-ra').value='';document.getElementById('student-dig').value='';selectedChapa=null;document.querySelectorAll('.chapa-card').forEach(x=>x.classList.remove('border-blue-500','border-purple-500','bg-slate-800/80'));document.getElementById('check-15').innerHTML='';document.getElementById('check-100').innerHTML='';disableConfirmButton('Digite o RA e Selecione uma Chapa')},2500)}catch(e){console.error(e);showRaError('Falha de conexão. O voto não foi registrado. Tente novamente.');validateRaInput()}}
-function openAdminModal(){document.getElementById('admin-modal').classList.remove('hidden');document.getElementById('admin-login-box').classList.remove('hidden');document.getElementById('admin-dashboard-box').classList.add('hidden');document.getElementById('login-error').classList.add('hidden');document.getElementById('admin-pass').value='';adminCredentials=null}
-function closeAdminModal(){document.getElementById('admin-modal').classList.add('hidden');adminCredentials=null}
-async function handleAdminLogin(e){e.preventDefault();const user=document.getElementById('admin-user').value.trim(),password=document.getElementById('admin-pass').value,err=document.getElementById('login-error');err.classList.add('hidden');try{const r=await fetch('/api/admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'results',user,password})});const data=await r.json().catch(()=>({}));if(!r.ok){err.textContent=r.status===401?'Credenciais incorretas!':(data.error||'Falha ao acessar o painel.');err.classList.remove('hidden');return}adminCredentials={user,password};document.getElementById('admin-login-box').classList.add('hidden');document.getElementById('admin-dashboard-box').classList.remove('hidden');renderDashboard(data)}catch(e){err.textContent='Falha de conexão com o servidor.';err.classList.remove('hidden')}}
-function renderDashboard(data){latestAdminResults={"15":Number(data.counts?.["15"]||0),"100":Number(data.counts?.["100"]||0),total:Number(data.total||0)};document.getElementById('count-15').innerText=latestAdminResults["15"];document.getElementById('count-100').innerText=latestAdminResults["100"];document.getElementById('voted-ras-count').innerText=`${latestAdminResults.total} alunos já votaram`;const ctx=document.getElementById('resultsChart').getContext('2d');if(chartInstance)chartInstance.destroy();chartInstance=new Chart(ctx,{type:'bar',data:{labels:['Chapa 15 (UAJ)','Chapa 100 (Renovação)'],datasets:[{label:'Total de Votos',data:[latestAdminResults["15"],latestAdminResults["100"]],backgroundColor:['#3b82f6','#a855f7'],borderRadius:8}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{color:'#94a3b8',precision:0}},x:{ticks:{color:'#94a3b8'}}}}})}
-async function resetVotes(){if(!adminCredentials||!confirm('Tem certeza de que deseja zerar TODOS os votos? Esta ação não pode ser desfeita.'))return;if(prompt('Para confirmar, digite exatamente: ZERAR')!=='ZERAR')return;try{const r=await fetch('/api/admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'reset',...adminCredentials,confirmation:'ZERAR'})});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||'Falha ao zerar');renderDashboard(data)}catch(e){alert('Não foi possível zerar os votos.')}}
-function exportCSV(){const c='Chapa,Votos\n'+`Chapa 15 (UAJ),${latestAdminResults["15"]}\n`+`Chapa 100 (Renovação),${latestAdminResults["100"]}\n\nTotal de votantes,${latestAdminResults.total}\n`,b=new Blob([c],{type:'text/csv;charset=utf-8;'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='apuracao_gremio_enny.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)}
+function confirmVote(){const ra=document.getElementById('student-ra').value.trim(),d=document.getElementById('student-dig').value.trim().toUpperCase();if(!ra||!d||!selectedChapa||!validateRaInput())return;const full=`${ra}-${d}`;if(votedRAs.includes(full)){showRaError('Este RA já registrou um voto anteriormente neste dispositivo.');return}votes[selectedChapa]=(votes[selectedChapa]||0)+1;votedRAs.push(full);saveData();disableConfirmButton('Voto Registrado');const f=document.getElementById('vote-feedback');f.classList.remove('hidden');setTimeout(()=>{f.classList.add('hidden');document.getElementById('student-ra').value='';document.getElementById('student-dig').value='';selectedChapa=null;document.querySelectorAll('.chapa-card').forEach(x=>x.classList.remove('border-blue-500','border-purple-500','bg-slate-800/80'));document.getElementById('check-15').innerHTML='';document.getElementById('check-100').innerHTML='';disableConfirmButton('Digite o RA e Selecione uma Chapa')},2200)}
+function openAdminModal(){document.getElementById('admin-modal').classList.remove('hidden');document.getElementById('admin-login-box').classList.remove('hidden');document.getElementById('admin-dashboard-box').classList.add('hidden');document.getElementById('login-error').classList.add('hidden')}
+function closeAdminModal(){document.getElementById('admin-modal').classList.add('hidden')}
+function handleAdminLogin(e){e.preventDefault();const u=document.getElementById('admin-user').value.trim(),p=document.getElementById('admin-pass').value;if(u==='admin'&&p==='0110'){document.getElementById('admin-login-box').classList.add('hidden');document.getElementById('admin-dashboard-box').classList.remove('hidden');updateDashboard()}else{document.getElementById('login-error').classList.remove('hidden')}}
+function updateDashboard(){loadData();document.getElementById('count-15').innerText=votes['15']||0;document.getElementById('count-100').innerText=votes['100']||0;document.getElementById('voted-ras-count').innerText=`${votedRAs.length} alunos já votaram neste dispositivo`;const ctx=document.getElementById('resultsChart').getContext('2d');if(chartInstance)chartInstance.destroy();chartInstance=new Chart(ctx,{type:'bar',data:{labels:['Chapa 15 (UAJ)','Chapa 100 (Renovação)'],datasets:[{label:'Total de Votos',data:[votes['15']||0,votes['100']||0],backgroundColor:['#3b82f6','#a855f7'],borderRadius:8}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{color:'#94a3b8',precision:0}},x:{ticks:{color:'#94a3b8'}}}}})}
+function resetVotes(){if(confirm('Tem certeza de que deseja zerar os votos e a lista de RAs deste dispositivo?')){votes={"15":0,"100":0};votedRAs=[];saveData();updateDashboard()}}
+function exportCSV(){const c='Chapa,Votos\n'+`Chapa 15 (UAJ),${votes['15']||0}\n`+`Chapa 100 (Renovação),${votes['100']||0}\n\nTotal de votantes,${votedRAs.length}\n`,b=new Blob([c],{type:'text/csv;charset=utf-8;'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='apuracao_gremio_enny.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)}
+loadData();
 </script>
 </body>
 </html>
