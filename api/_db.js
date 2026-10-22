@@ -3,10 +3,14 @@ import crypto from 'node:crypto';
 
 let schemaReady = false;
 
+function getDatabaseUrl() {
+  return process.env.DATABASE_URL || process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL || '';
+}
+
 export function getSql() {
-  const databaseUrl = process.env.DATABASE_URL;
+  const databaseUrl = getDatabaseUrl();
   if (!databaseUrl) {
-    const error = new Error('DATABASE_URL não configurada.');
+    const error = new Error('Banco de dados não configurado na Vercel.');
     error.code = 'CONFIG_ERROR';
     throw error;
   }
@@ -39,7 +43,7 @@ export function normalizeAndHashRa(ra, digito) {
 
   const secret = process.env.RA_HASH_SECRET;
   if (!secret || secret.length < 16) {
-    const error = new Error('RA_HASH_SECRET não configurado.');
+    const error = new Error('RA_HASH_SECRET não configurado na Vercel.');
     error.code = 'CONFIG_ERROR';
     throw error;
   }
@@ -82,6 +86,14 @@ export async function getResults() {
       '100': Number(row.chapa_100 || 0)
     },
     total: Number(row.total || 0)
+  };
+}
+
+export function getConfigStatus() {
+  return {
+    database: Boolean(getDatabaseUrl()),
+    raHashSecret: Boolean(process.env.RA_HASH_SECRET && process.env.RA_HASH_SECRET.length >= 16),
+    adminPassword: Boolean(process.env.ADMIN_PASSWORD)
   };
 }
 
